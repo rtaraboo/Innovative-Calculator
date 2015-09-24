@@ -8,7 +8,17 @@
 
 import UIKit
 
-class SecondViewController: UIViewController {
+class SecondViewController: UIViewController, UITextFieldDelegate {
+    
+    
+    @IBOutlet weak var txtSubtractionFirstNumber: UITextField!
+    @IBOutlet weak var txtSubtractionSecondNumber: UITextField!
+    @IBOutlet weak var lblSubtractionLabel: UILabel!
+    
+    var subFirstNumber = ""
+    var subSecondNumber = ""
+    var subAnswer : Float = 0.0
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,5 +31,55 @@ class SecondViewController: UIViewController {
     }
 
 
+   
+    
+    @IBAction func btnSubtractionCalculate(sender: UIButton) {
+        if txtSubtractionFirstNumber.text! == "" || txtSubtractionSecondNumber.text! == "" {
+            
+            txtSubtractionFirstNumber.text = "0"
+            txtSubtractionSecondNumber.text = "0"
+            lblSubtractionLabel.text = "Please enter values."
+            
+        } else {
+        
+        subFirstNumber = txtSubtractionFirstNumber.text!
+        subSecondNumber = txtSubtractionSecondNumber.text!
+        
+        var fSubFirst = Float(subFirstNumber)
+        var fSubSecond = Float(subSecondNumber)
+        
+        subAnswer = fSubFirst! - fSubSecond!
+        
+        var sSubAnswer = String(format: "%0.2f", subAnswer)
+        
+        lblSubtractionLabel.text = "\(sSubAnswer)"
+            
+        }
+        
+    }
+    
+    
+    @IBAction func btnSubtractionClear(sender: UIButton) {
+        
+        txtSubtractionSecondNumber.text = ""
+        txtSubtractionFirstNumber.text  = ""
+        lblSubtractionLabel.text = "Answer"
+        
+    }
+    
+    func hideKeyboards(){
+        txtSubtractionFirstNumber.resignFirstResponder()
+        txtSubtractionSecondNumber.resignFirstResponder()
+        
+    }
+    
+    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        hideKeyboards()
+    }
+    
+    
+    
+    
 }
 
